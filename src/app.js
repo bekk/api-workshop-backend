@@ -12,9 +12,9 @@ function calculateSmilefjes(karakter1, karakter2, karakter3, karakter4){
   const highestValue = Math.max(karakter1, karakter2, karakter3, karakter4)
   switch (highestValue) {
     case 0:
-      return "GLAD"
+      return "BLID"
     case 1:
-      return "GLAD"
+      return "BLID"
     case 2:
       return "NØYTRAL"
     case 3:
