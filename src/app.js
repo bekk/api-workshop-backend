@@ -32,20 +32,21 @@ app.get("/tilsyn", (req, res) => {
   const poststed = req.query.poststed;
   const smilefjes = req.query.smilefjes;
 
-  const mappedJsonData = tilsynsListe.entries
+  const mappedJsonData = tilsynsListe
+    .slice(0, 200)
     .map((tilsyn) => {
       return {
         navn: tilsyn.navn,
         poststed: tilsyn.poststed,
-        postnummer: tilsyn.postnr,
+        postnummer: tilsyn.postnummer,
         dato: tilsyn.dato,
         smilefjes: calculateSmilefjes(
-          tilsyn.karakter1,
-          tilsyn.karakter2,
-          tilsyn.karakter3,
-          tilsyn.karakter4
+          tilsyn.rutinerOgLedelse,
+          tilsyn.lokalerOgUtstyr,
+          tilsyn.mathåndteringOgTilberedning,
+          tilsyn.merkingOgSporbarhet
         ),
-        tilsynsId: tilsyn.tilsynsobjektid,
+        tilsynsId: tilsyn.tilsynsId,
       };
     })
     .filter((tilsyn) => {
@@ -73,29 +74,12 @@ app.get("/tilsyn", (req, res) => {
   res.send(mappedJsonData);
 });
 
-app.get("/tilsyn/:tilsynId", (req, res) => {
-  const tilsyn = tilsynsListe.entries.find((tilsyn) => {
-    return tilsyn.tilsynsobjektid.toString() == req.params.tilsynId;
+app.get("/tilsyn/:tilsynsId", (req, res) => {
+  const tilsyn = tilsynsListe.find((tilsyn) => {
+    return tilsyn.tilsynsId.toString() == req.params.tilsynsId;
   });
-  const mappedTilsyn = {
-    navn: tilsyn.navn,
-    poststed: tilsyn.poststed,
-    postnummer: tilsyn.postnr,
-    dato: tilsyn.dato,
-    smilefjes: calculateSmilefjes(
-      tilsyn.karakter1,
-      tilsyn.karakter2,
-      tilsyn.karakter3,
-      tilsyn.karakter4
-    ),
-    tilsynsId: tilsyn.tilsynsobjektid,
-    rutinerOgLedelse: parseInt(tilsyn.karakter1, 10),
-    lokalerOgUtstyr: parseInt(tilsyn.karakter2, 10),
-    mathåndteringOgTilberedning: parseInt(tilsyn.karakter3, 10),
-    merkingOgSporbarhet: parseInt(tilsyn.karakter4, 10),
-  };
 
-  res.send(mappedTilsyn);
+  res.send(tilsyn);
 });
 
 app.listen(port, function () {
