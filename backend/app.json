@@ -1,0 +1,9 @@
+{
+    "name": "API-workshop backend",
+    "buildpacks": [
+        {
+          "url": "heroku/nodejs"
+        }
+      ]
+
+}
