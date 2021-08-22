@@ -5,7 +5,7 @@ const data = require("./data.json");
 
 const app = express();
 
-const port = 3003;
+const port = process.env.PORT || 3003;
 
 app.get("/tilsyn", (req, res) => {
   res.send(data);
