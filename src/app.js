@@ -8,6 +8,21 @@ const app = express();
 
 const port = process.env.PORT || 3003;
 
+function calculateSmilefjes(karakter1, karakter2, karakter3, karakter4){
+  const highestValue = Math.max(karakter1, karakter2, karakter3, karakter4)
+  switch (highestValue) {
+    case 0:
+      return "GLAD"
+    case 1:
+      return "GLAD"
+    case 2:
+      return "NØYTRAL"
+    case 3:
+      return "SUR"
+    default:
+      break;
+  }
+}
 
 app.get("/tilsyn", (req, res) => {
   const mappedJsonData = tilsynsListe.entries
@@ -19,7 +34,7 @@ app.get("/tilsyn", (req, res) => {
          poststed: tilsyn.poststed,
          postnr: tilsyn.postnr,
          dato: tilsyn.dato,
-         smilefjes: tilsyn.karakter1
+         smilefjes: calculateSmilefjes(tilsyn.karakter1,tilsyn.karakter2,tilsyn.karakter3,tilsyn.karakter4)
         }
       })
   )
