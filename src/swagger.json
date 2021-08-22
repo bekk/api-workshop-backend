@@ -1,0 +1,103 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Dette er en beskrivelse av tilsynsapi'et brukt under api-workshopern.",
+    "version": "0.0.1",
+    "title": "Tilsynsapi"
+  },
+  "host": "obscure-oasis-77622.herokuapp.com",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "tilsyn",
+      "description": "Hent en liste med tilsyn",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/tilsyn": {
+      "get": {
+        "tags": [
+          "tilsyn"
+        ],
+        "summary": "Hent en liste med tilsyn",
+        "description": "",
+        "operationId": "hentTilsynsliste",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "postnummer",
+            "in": "query",
+            "description": "Filtrer på postnummer",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "poststed",
+            "in": "query",
+            "description": "Filtrer på poststed",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "smilefjes",
+            "in": "query",
+            "description": "Filtrer på smilefjes",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "BLID",
+                "NØYTRAL",
+                "SUR"
+              ]
+            },
+            "collectionFormat": "csv"
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/tilsyn/{tilsynsId}": {
+      "get": {
+        "tags": [
+          "tilsyn"
+        ],
+        "summary": "Hent detaljer om et tilsyn",
+        "description": "",
+        "operationId": "HentDetaljerOmTilsyn",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tilsynsId",
+            "required": true,
+            "type": "string",
+            "maximum": 1,
+            "description": "Parameter description in Markdown."
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    }
+  }
+}

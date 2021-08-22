@@ -1,8 +1,10 @@
 import express from "express";
 import { createRequire } from "module";
+
 const require = createRequire(import.meta.url);
 const tilsynsListe = require("./data");
-
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
 const app = express();
 
 const port = process.env.PORT || 3003;
@@ -22,6 +24,8 @@ function calculateSmilefjes(karakter1, karakter2, karakter3, karakter4) {
       break;
   }
 }
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get("/tilsyn", (req, res) => {
   const postnummer = req.query.postnummer;
