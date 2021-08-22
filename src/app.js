@@ -1,5 +1,5 @@
 import express from "express";
-import { getTilsynList } from "./tilsynList";
+import { getTilsynList } from "./tilsynList.js";
 
 const app = express();
 
