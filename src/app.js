@@ -1,12 +1,14 @@
 import express from "express";
-import { getTilsynList } from "./tilsynList.js";
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const data = require("./data.json");
 
 const app = express();
 
 const port = 3003;
 
 app.get("/tilsyn", (req, res) => {
-  res.send(getTilsynList());
+  res.send(data);
 });
 
 app.get("/tilsyn/:tilsynId", (req, res) => {
