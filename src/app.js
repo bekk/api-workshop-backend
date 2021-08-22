@@ -24,21 +24,47 @@ function calculateSmilefjes(karakter1, karakter2, karakter3, karakter4) {
 }
 
 app.get("/tilsyn", (req, res) => {
-  const mappedJsonData = tilsynsListe.entries.map((tilsyn) => {
-    return {
-      navn: tilsyn.navn,
-      poststed: tilsyn.poststed,
-      postnr: tilsyn.postnr,
-      dato: tilsyn.dato,
-      smilefjes: calculateSmilefjes(
-        tilsyn.karakter1,
-        tilsyn.karakter2,
-        tilsyn.karakter3,
-        tilsyn.karakter4
-      ),
-      tilsynsId: tilsyn.tilsynsobjektid,
-    };
-  });
+  const postnummer = req.query.postnummer;
+  const poststed = req.query.poststed;
+  const smilefjes = req.query.smilefjes;
+
+  const mappedJsonData = tilsynsListe.entries
+    .map((tilsyn) => {
+      return {
+        navn: tilsyn.navn,
+        poststed: tilsyn.poststed,
+        postnummer: tilsyn.postnr,
+        dato: tilsyn.dato,
+        smilefjes: calculateSmilefjes(
+          tilsyn.karakter1,
+          tilsyn.karakter2,
+          tilsyn.karakter3,
+          tilsyn.karakter4
+        ),
+        tilsynsId: tilsyn.tilsynsobjektid,
+      };
+    })
+    .filter((tilsyn) => {
+      if (!postnummer) {
+        return true;
+      } else {
+        return tilsyn.postnummer == postnummer;
+      }
+    })
+    .filter((tilsyn) => {
+      if (!poststed) {
+        return true;
+      } else {
+        return tilsyn.poststed == poststed;
+      }
+    })
+    .filter((tilsyn) => {
+      if (!smilefjes) {
+        return true;
+      } else {
+        return tilsyn.smilefjes == smilefjes;
+      }
+    });
 
   res.send(mappedJsonData);
 });
@@ -50,7 +76,7 @@ app.get("/tilsyn/:tilsynId", (req, res) => {
   const mappedTilsyn = {
     navn: tilsyn.navn,
     poststed: tilsyn.poststed,
-    postnr: tilsyn.postnr,
+    postnummer: tilsyn.postnr,
     dato: tilsyn.dato,
     smilefjes: calculateSmilefjes(
       tilsyn.karakter1,
