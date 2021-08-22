@@ -5,6 +5,8 @@ const require = createRequire(import.meta.url);
 const tilsynsListe = require("./data");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
+var cors = require("cors");
+
 const app = express();
 
 const port = process.env.PORT || 3003;
