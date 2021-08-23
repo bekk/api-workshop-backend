@@ -5,16 +5,12 @@
     "version": "0.0.1",
     "title": "Tilsynsapi"
   },
-  "host": "obscure-oasis-77622.herokuapp.com",
+  "host": "smilefjes.herokuapp.com",
   "basePath": "/",
   "tags": [
     {
       "name": "tilsyn",
-      "description": "Hent en liste med tilsyn",
-      "externalDocs": {
-        "description": "Find out more",
-        "url": "http://swagger.io"
-      }
+      "description": "Hent en liste med tilsyn"
     }
   ],
   "schemes": [
