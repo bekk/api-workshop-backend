@@ -29,7 +29,7 @@ function calculateSmilefjes(karakter1, karakter2, karakter3, karakter4) {
 
 app.use(cors());
 
-app.get("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get("/tilsyn", (req, res) => {
   const postnummer = req.query.postnummer;
