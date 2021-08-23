@@ -37,7 +37,6 @@ app.get("/tilsyn", (req, res) => {
   const smilefjes = req.query.smilefjes;
 
   const mappedJsonData = tilsynsListe
-    .slice(0, 200)
     .map((tilsyn) => {
       return {
         navn: tilsyn.navn,
@@ -73,7 +72,8 @@ app.get("/tilsyn", (req, res) => {
       } else {
         return tilsyn.smilefjes == smilefjes;
       }
-    });
+    })
+    .slice(0, 200);
 
   res.send(mappedJsonData);
 });
