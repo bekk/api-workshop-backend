@@ -11,22 +11,6 @@ const app = express();
 
 const port = process.env.PORT || 3003;
 
-function calculateSmilefjes(karakter1, karakter2, karakter3, karakter4) {
-  const highestValue = Math.max(karakter1, karakter2, karakter3, karakter4);
-  switch (highestValue) {
-    case 0:
-      return "BLID";
-    case 1:
-      return "BLID";
-    case 2:
-      return "NØYTRAL";
-    case 3:
-      return "SUR";
-    default:
-      break;
-  }
-}
-
 app.use(cors());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
@@ -41,14 +25,9 @@ app.get("/tilsyn", (req, res) => {
       return {
         navn: tilsyn.navn,
         poststed: tilsyn.poststed,
-        postnummer: tilsyn.postnummer,
-        dato: tilsyn.dato,
-        smilefjes: calculateSmilefjes(
-          tilsyn.rutinerOgLedelse,
-          tilsyn.lokalerOgUtstyr,
-          tilsyn.mathåndteringOgTilberedning,
-          tilsyn.merkingOgSporbarhet
-        ),
+        postnummer: tilsyn.postnummer.toString(),
+        dato: tilsyn.dato.toString(),
+        smilefjes: tilsyn.smilefjes,
         tilsynsId: tilsyn.tilsynsId,
       };
     })
