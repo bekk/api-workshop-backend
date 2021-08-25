@@ -32,21 +32,21 @@ app.get("/tilsyn", (req, res) => {
       };
     })
     .filter((tilsyn) => {
-      if (!postnummer) {
+      if (!postnummer || postnummer == "undefined") {
         return true;
       } else {
         return tilsyn.postnummer == postnummer;
       }
     })
     .filter((tilsyn) => {
-      if (!poststed) {
+      if (!poststed || poststed == "undefined") {
         return true;
       } else {
         return tilsyn.poststed == poststed;
       }
     })
     .filter((tilsyn) => {
-      if (!smilefjes) {
+      if (!smilefjes || smilefjes == "undefined") {
         return true;
       } else {
         return tilsyn.smilefjes == smilefjes;
