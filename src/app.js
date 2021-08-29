@@ -52,6 +52,12 @@ app.get("/tilsyn", (req, res) => {
         return tilsyn.smilefjes == smilefjes;
       }
     })
+    .filter((tilsyn) => {
+      if (tilsyn.smilefjes == "SUR") {
+        return req.header("accessToken") == "superduperhemmeligpassord";
+      }
+      return true;
+    })
     .slice(0, 200);
 
   res.send(mappedJsonData);
