@@ -34,21 +34,23 @@
             "in": "query",
             "description": "Filtrer på postnummer",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "example": "7010"
           },
           {
             "name": "poststed",
             "in": "query",
             "description": "Filtrer på poststed",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "example": "TRONDHEIM"
           },
           {
             "name": "smilefjes",
             "in": "query",
             "description": "Filtrer på smilefjes",
             "required": false,
-            "type": "array",
+            "type": "string",
             "items": {
               "type": "string",
               "enum": [
@@ -57,12 +59,19 @@
                 "SUR"
               ]
             },
-            "collectionFormat": "csv"
+            "example": "BLID"
           }
         ],
         "responses": {
-          "405": {
-            "description": "Invalid input"
+          "200": {
+            "description": "En liste med tilsyn",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Tilsyn"
+              }
+            }
+
           }
         }
       }
@@ -85,13 +94,147 @@
             "required": true,
             "type": "string",
             "maximum": 1,
-            "description": "Parameter description in Markdown."
+            "description": "Tilsynets id som er gitt i UUID-format",
+            "example": "010827c2-3c6b-4095-a654-9cb5f819a50a"
           }
         ],
         "responses": {
-          "405": {
-            "description": "Invalid input"
+          "200": {
+            "description": "Tilsynsdetaljer",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/TilsynDetaljer"
+            }
+
           }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Tilsyn": {
+      "type": "object",
+      "properties": {
+        "tilsynsId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "a2831c9e-76d9-4113-8235-571402be4be4"
+        },
+        "navn": {
+          "type": "string",
+          "example": "Super Hero Burger"
+        },
+        "dato": {
+          "type": "string",
+          "example": "19062019",
+          "description": "Datoen tilsynet ble gjennomført. Har formatet DDMMYYYY"
+        },
+        "postnummer": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 4,
+          "example": "7010"
+        },
+        "smilefjes": {
+          "type": "string",
+          "description": "Tekstlig representasjon av tilsynets resultat",
+          "enum": [
+            "BLID",
+            "NØYTRAL",
+            "SUR"
+          ],
+          "example": "SUR"
+        },
+        "poststed": {
+          "type": "string",
+          "enum": [
+            "OSLO",
+            "BERGEN",
+            "TRONDHEIM"
+          ],
+          "example": "TRONDHEIM"
+        }
+      }
+    },
+    "TilsynDetaljer": {
+      "type": "object",
+      "properties": {
+        "tilsynsId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "a2831c9e-76d9-4113-8235-571402be4be4"
+        },
+        "navn": {
+          "type": "string",
+          "example": "Super Hero Burger"
+        },
+        "dato": {
+          "type": "string",
+          "example": "19062019",
+          "description": "Datoen tilsynet ble gjennomført. Har formatet DDMMYYYY"
+        },
+        "postnummer": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 4,
+          "example": "7010"
+        },
+        "smilefjes": {
+          "type": "string",
+          "description": "Tekstlig representasjon av tilsynets resultat",
+          "enum": [
+            "BLID",
+            "NØYTRAL",
+            "SUR"
+          ],
+          "example": "SUR"
+        },
+        "poststed": {
+          "type": "string",
+          "enum": [
+            "OSLO",
+            "BERGEN",
+            "TRONDHEIM"
+          ],
+          "example": "TRONDHEIM"
+        },
+        "tilsynshistorikkId": {
+          "type": "string",
+          "example": "Z1212211006466393252ZMNMZ",
+          "description": "En id som er lik for alle tilsyn gjennomført på samme restaurant"
+        },
+        "rutinerOgLedelse": {
+          "type": "integer",
+          "example": "2",
+          "minimum": 0,
+          "maximum": 5,
+          "description": "Et heltall som beskriver hvilken score matstedet har fått innen kategorien Rutiner og ledelse"
+        },
+        "lokalerOgUtstyr": {
+          "type": "integer",
+          "example": "2",
+          "minimum": 0,
+          "maximum": 5,
+          "description": "Et heltall som beskriver hvilken score matstedet har fått innen kategorien Lokaler og utstyr"
+        },
+        "mathåndteringOgTilberedning": {
+          "type": "integer",
+          "example": "2",
+          "minimum": 0,
+          "maximum": 5,
+          "description": "Et heltall som beskriver hvilken score matstedet har fått innen kategorien Mathåndtering og tilberedning"
+        },
+        "merkingOgSporbarhet": {
+          "type": "integer",
+          "example": "2",
+          "minimum": 0,
+          "maximum": 5,
+          "description": "Et heltall som beskriver hvilken score matstedet har fått innen kategorien Merking og sporbarhet"
+        },
+        "adresse": {
+          "type": "string",
+          "example": "Kaia 9",
+          "description": "Adressen til spistedet hvor tilsynet ble gjennomført."
         }
       }
     }
