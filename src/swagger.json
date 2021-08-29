@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "Dette er en beskrivelse av tilsynsapi'et brukt under api-workshopern.",
+    "description": "Modifisert api basert på mattilsynets åpne data som kan finnes på https://data.norge.no/datasets/288aa74c-e3d3-492e-9ede-e71503b3bfd9",
     "version": "0.0.1",
     "title": "Tilsynsapi"
   },
